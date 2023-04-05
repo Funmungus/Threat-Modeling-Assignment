@@ -50,7 +50,7 @@
           },
           {
             "position": {
-              "x": 600,
+              "x": 725,
               "y": 90
             },
             "size": {
@@ -68,7 +68,7 @@
               }
             },
             "shape": "actor",
-            "id": "8b1b417a-da1c-437b-8d8e-c279af873f53",
+            "id": "703cd0a9-8879-41fb-92ad-ba711bb76483",
             "zIndex": 2,
             "data": {
               "type": "tm.Actor",
@@ -77,6 +77,72 @@
               "outOfScope": false,
               "reasonOutOfScope": "",
               "providesAuthentication": false,
+              "hasOpenThreats": false,
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": 370,
+              "y": 240
+            },
+            "size": {
+              "width": 100,
+              "height": 100
+            },
+            "attrs": {
+              "text": {
+                "text": "Web\nApplication"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1,
+                "strokeDasharray": null
+              }
+            },
+            "shape": "process",
+            "id": "7b6e36d6-2717-40ae-a9e7-2405bdfe1f3b",
+            "zIndex": 3,
+            "data": {
+              "type": "tm.Process",
+              "name": "Web\nApplication",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "privilegeLevel": "",
+              "hasOpenThreats": false,
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": 688,
+              "y": 245
+            },
+            "size": {
+              "width": 100,
+              "height": 100
+            },
+            "attrs": {
+              "text": {
+                "text": "Background\nWorker Process"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1,
+                "strokeDasharray": null
+              }
+            },
+            "shape": "process",
+            "id": "7cff0dc9-e2ef-4e8c-ab6c-108adc833655",
+            "zIndex": 4,
+            "data": {
+              "type": "tm.Process",
+              "name": "Background\nWorker Process",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "privilegeLevel": "",
               "hasOpenThreats": false,
               "threats": []
             }
