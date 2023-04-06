@@ -24,61 +24,7 @@
         "cells": [
           {
             "position": {
-              "x": 565,
-              "y": 414
-            },
-            "size": {
-              "width": 160,
-              "height": 80
-            },
-            "attrs": {
-              "text": {
-                "text": "Worker Config"
-              },
-              "topLine": {
-                "stroke": "red",
-                "strokeWidth": 3,
-                "strokeDasharray": null
-              },
-              "bottomLine": {
-                "stroke": "red",
-                "strokeWidth": 3,
-                "strokeDasharray": null
-              }
-            },
-            "visible": true,
-            "shape": "store",
-            "id": "a25bbb4e-093f-4238-a620-31efdee452dc",
-            "zIndex": 1,
-            "data": {
-              "name": "Worker Config",
-              "description": "",
-              "type": "tm.Store",
-              "isTrustBoundary": false,
-              "outOfScope": false,
-              "reasonOutOfScope": "",
-              "threats": [
-                {
-                  "status": "Open",
-                  "severity": "High",
-                  "mitigation": "Encrypt the DB credentials in the configuration file.\n\nExpire and replace the DB credentials regularly.",
-                  "description": "The Background Worker configuration stores the credentials used by the worker to access the DB. An attacker could compromise the Background Worker and get access to the DB credentials.",
-                  "title": "Accessing DB credentials",
-                  "type": "Information disclosure",
-                  "modelType": "STRIDE",
-                  "id": "7df716cd-a982-48a5-b4ed-800ccb670734"
-                }
-              ],
-              "hasOpenThreats": true,
-              "isALog": false,
-              "storesCredentials": true,
-              "isEncrypted": false,
-              "isSigned": false
-            }
-          },
-          {
-            "position": {
-              "x": 290,
+              "x": 430,
               "y": 420
             },
             "size": {
@@ -142,7 +88,7 @@
           },
           {
             "position": {
-              "x": 40,
+              "x": 60,
               "y": 420
             },
             "size": {
@@ -156,12 +102,12 @@
               "topLine": {
                 "stroke": "red",
                 "strokeWidth": 3,
-                "strokeDasharray": null
+                "strokeDasharray": "5 2"
               },
               "bottomLine": {
                 "stroke": "red",
                 "strokeWidth": 3,
-                "strokeDasharray": null
+                "strokeDasharray": "5 2"
               }
             },
             "visible": true,
@@ -196,137 +142,8 @@
           },
           {
             "position": {
-              "x": 502,
-              "y": 13
-            },
-            "size": {
-              "width": 160,
-              "height": 80
-            },
-            "attrs": {
-              "text": {
-                "text": "Message Queue"
-              },
-              "topLine": {
-                "stroke": "red",
-                "strokeWidth": 3,
-                "strokeDasharray": null
-              },
-              "bottomLine": {
-                "stroke": "red",
-                "strokeWidth": 3,
-                "strokeDasharray": null
-              }
-            },
-            "visible": true,
-            "shape": "store",
-            "id": "ec574fb4-87e7-494b-88dc-2a3c99172067",
-            "zIndex": 4,
-            "data": {
-              "name": "Message Queue",
-              "description": "",
-              "type": "tm.Store",
-              "isTrustBoundary": false,
-              "outOfScope": false,
-              "reasonOutOfScope": "",
-              "threats": [
-                {
-                  "status": "Open",
-                  "severity": "Low",
-                  "title": "Message secrecy",
-                  "type": "Information disclosure",
-                  "description": "The data flow between the Web Application and the Background Worker is not point-to-point and therefore end-to-end secrecy cannot be provided at the transport layer. Messages could be read by an attacker at rest in the Message Queue.",
-                  "mitigation": "Use message level encryption for high sensitivity data (e.g. security tokens) in messages.",
-                  "modelType": "STRIDE",
-                  "id": "7bc090cc-50a1-44aa-8481-5e4daaa6d8ba"
-                },
-                {
-                  "status": "Open",
-                  "severity": "Medium",
-                  "title": "Message tampering",
-                  "type": "Tampering",
-                  "description": "Messages on the queue could be tampered with, causing incorrect processing by the Background Worker.",
-                  "mitigation": "Sign all queue messages at the Web Server. Validate the message signature at the Background Worker and reject any message with a missing or invalid signature. Log any failed messages.",
-                  "modelType": "STRIDE",
-                  "id": "52ba8c1d-8376-4ede-942d-e575d71eaef5"
-                },
-                {
-                  "status": "Mitigated",
-                  "severity": "High",
-                  "title": "Fake messages could be placed on the queue",
-                  "type": "Spoofing",
-                  "description": "An attacker could put a fake message on queue, causing the Background Worker to do incorrect processing.",
-                  "mitigation": "Restrict access to the queue to the IP addresses of the Web Server and Background Worker.\n\nImplement authentication on the queue endpoint.",
-                  "modelType": "STRIDE",
-                  "id": "b917c6dd-e2d5-455c-8b81-61407126abfa"
-                }
-              ],
-              "hasOpenThreats": true,
-              "isALog": false,
-              "storesCredentials": false,
-              "isEncrypted": false,
-              "isSigned": false
-            }
-          },
-          {
-            "position": {
-              "x": 560,
-              "y": 180
-            },
-            "size": {
-              "width": 100,
-              "height": 100
-            },
-            "attrs": {
-              "text": {
-                "text": "Background\nWorker Process"
-              },
-              "body": {
-                "stroke": "red",
-                "strokeWidth": 3,
-                "strokeDasharray": null
-              }
-            },
-            "visible": true,
-            "shape": "process",
-            "zIndex": 5,
-            "id": "3e75b596-9c70-41b6-a2cf-a15899c254d3",
-            "data": {
-              "name": "Background\nWorker Process",
-              "description": "",
-              "type": "tm.Process",
-              "isTrustBoundary": false,
-              "outOfScope": false,
-              "reasonOutOfScope": "",
-              "threats": [
-                {
-                  "status": "Open",
-                  "severity": "Medium",
-                  "title": "Poison messages 1",
-                  "type": "Denial of service",
-                  "description": "An attacker could generate a malicious message that the Background Worker cannot process.",
-                  "mitigation": "Implement a poison message queue where messages are placed after a fixed number of retries.",
-                  "modelType": "STRIDE",
-                  "id": "1468b37f-3ff9-4079-8767-f33bbfe0a887"
-                },
-                {
-                  "status": "Open",
-                  "severity": "Medium",
-                  "mitigation": "Validate the content of all messages, before processing. Reject any message that have invalid content and log the rejection. Do not log the malicious content - instead log a description of the error.",
-                  "type": "Denial of service",
-                  "title": "Poison messages 2",
-                  "description": "An attacker could generate a malicious message that the Background Worker cannot process.",
-                  "modelType": "STRIDE",
-                  "id": "3c8033db-0e51-42c0-afd0-d01d2ced4a14"
-                }
-              ],
-              "hasOpenThreats": true
-            }
-          },
-          {
-            "position": {
-              "x": 210,
-              "y": 180
+              "x": 60,
+              "y": 230
             },
             "size": {
               "width": 100,
@@ -359,8 +176,8 @@
           },
           {
             "position": {
-              "x": 40,
-              "y": 29
+              "x": -90,
+              "y": -80
             },
             "size": {
               "width": 160,
@@ -393,103 +210,10 @@
             }
           },
           {
-            "shape": "trust-broundary-curve",
-            "attrs": {
-              "line": {
-                "targetMarker": "",
-                "sourceMarker": ""
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "labels": [
-              {
-                "attrs": {
-                  "text": {
-                    "text": ""
-                  }
-                }
-              }
-            ],
-            "data": {
-              "type": "tm.Boundary",
-              "name": "",
-              "description": "",
-              "isTrustBoundary": true,
-              "hasOpenThreats": false
-            },
-            "id": "0adc088b-ebb1-46be-af7b-36112c60c419",
-            "source": {
-              "x": 80,
-              "y": 220
-            },
-            "target": {
-              "x": 295,
-              "y": 51
-            },
-            "vertices": [
-              {
-                "x": 276,
-                "y": 149
-              }
-            ]
-          },
-          {
-            "shape": "trust-broundary-curve",
-            "attrs": {
-              "line": {
-                "targetMarker": "",
-                "sourceMarker": ""
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "labels": [
-              {
-                "attrs": {
-                  "text": {
-                    "text": ""
-                  }
-                }
-              }
-            ],
-            "data": {
-              "type": "tm.Boundary",
-              "name": "",
-              "description": "",
-              "isTrustBoundary": true,
-              "hasOpenThreats": false
-            },
-            "id": "6767506f-3d7f-4a5f-bbe2-ea03689d30fc",
-            "source": {
-              "x": 350,
-              "y": 10
-            },
-            "target": {
-              "x": 663,
-              "y": 156
-            },
-            "vertices": [
-              {
-                "x": 333,
-                "y": 117
-              },
-              {
-                "x": 432,
-                "y": 180
-              }
-            ]
-          },
-          {
             "shape": "flow",
             "attrs": {
               "line": {
-                "stroke": "#333333",
-                "strokeWidth": 1,
+                "stroke": "red",
                 "targetMarker": {
                   "name": "classic"
                 },
@@ -509,31 +233,26 @@
               "protocol": "HTTP/S",
               "isEncrypted": true,
               "isPublicNetwork": true,
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "threats": [
                 {
-                  "status": "Mitigated",
+                  "status": "Open",
                   "severity": "High",
                   "title": "Data flow should use HTTP/S",
                   "type": "Information disclosure",
                   "description": "These requests are made over the public internet and could be intercepted by an attacker.",
                   "mitigation": "The requests should require HTTP/S. This will provide confidentiality and integrity. HTTP should not be supported.",
                   "modelType": "STRIDE",
-                  "id": "79cbaf10-e5a2-4fd6-9818-7f180a113938"
+                  "id": "79cbaf10-e5a2-4fd6-9818-7f180a113938",
+                  "new": false,
+                  "number": 0
                 }
               ],
               "isTrustBoundary": false
             },
             "id": "2d84bfae-f1ed-49e5-8542-10a02f4a1c57",
             "labels": [
-              {
-                "position": 0.5,
-                "attrs": {
-                  "label": {
-                    "text": "Web Request (HTTP/S)"
-                  }
-                }
-              }
+              "Web Request"
             ],
             "source": {
               "cell": "b394f9f7-07ca-42bc-b616-ad77c6fbfcce"
@@ -543,70 +262,7 @@
             },
             "vertices": [
               {
-                "x": 245,
-                "y": 112
-              }
-            ]
-          },
-          {
-            "shape": "flow",
-            "attrs": {
-              "line": {
-                "stroke": "red",
-                "targetMarker": {
-                  "name": "classic"
-                },
-                "strokeDasharray": null
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "data": {
-              "type": "tm.Flow",
-              "name": "Put Message",
-              "description": "",
-              "outOfScope": false,
-              "reasonOutOfScope": "",
-              "protocol": "",
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "hasOpenThreats": true,
-              "threats": [
-                {
-                  "status": "Open",
-                  "severity": "High",
-                  "description": "These requests are made over the public internet and could be intercepted by an attacker.",
-                  "title": "Data flow should use HTTP/S",
-                  "type": "Information disclosure",
-                  "mitigation": "The requests should require HTTP/S. This will provide confidentiality and integrity. HTTP should not be supported.",
-                  "modelType": "STRIDE",
-                  "id": "f8cc4477-653f-4e4a-a0cb-7b90f046fd7b"
-                }
-              ],
-              "isTrustBoundary": false
-            },
-            "id": "c779a822-d4ec-4237-9191-fe7170b32956",
-            "labels": [
-              {
-                "position": 0.5,
-                "attrs": {
-                  "label": {
-                    "text": "Put Message"
-                  }
-                }
-              }
-            ],
-            "source": {
-              "cell": "0d9909ea-1398-4898-be81-cf1c808324dc"
-            },
-            "target": {
-              "cell": "ec574fb4-87e7-494b-88dc-2a3c99172067"
-            },
-            "vertices": [
-              {
-                "x": 351,
+                "x": 115,
                 "y": 120
               }
             ]
@@ -628,196 +284,17 @@
             "connector": "smooth",
             "data": {
               "type": "tm.Flow",
-              "name": "Message",
-              "description": "",
-              "outOfScope": false,
-              "reasonOutOfScope": "",
-              "protocol": "",
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "hasOpenThreats": true,
-              "threats": [
-                {
-                  "status": "Open",
-                  "severity": "High",
-                  "mitigation": "The requests should require HTTP/S. This will provide confidentiality and integrity. HTTP should not be supported.",
-                  "type": "Information disclosure",
-                  "title": "Data flow should use HTTP/S",
-                  "description": "These requests are made over the public internet and could be intercepted by an attacker.",
-                  "modelType": "STRIDE",
-                  "id": "2fcfb064-6a08-4771-9d9d-342639d63d7b"
-                }
-              ],
-              "isTrustBoundary": false
-            },
-            "id": "552b5603-41c9-4458-83f2-01a6490a41b8",
-            "labels": [
-              {
-                "position": 0.5,
-                "attrs": {
-                  "label": {
-                    "text": "Message"
-                  }
-                }
-              }
-            ],
-            "source": {
-              "cell": "ec574fb4-87e7-494b-88dc-2a3c99172067"
-            },
-            "target": {
-              "cell": "3e75b596-9c70-41b6-a2cf-a15899c254d3"
-            },
-            "vertices": [
-              {
-                "x": 544,
-                "y": 127
-              }
-            ]
-          },
-          {
-            "shape": "flow",
-            "attrs": {
-              "line": {
-                "stroke": "red",
-                "targetMarker": {
-                  "name": "classic"
-                },
-                "strokeDasharray": null
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "data": {
-              "type": "tm.Flow",
-              "name": "Worker Query Results",
-              "description": "",
-              "outOfScope": false,
-              "reasonOutOfScope": "",
-              "protocol": "",
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "hasOpenThreats": true,
-              "threats": [
-                {
-                  "status": "Open",
-                  "severity": "Low",
-                  "title": "Man in the middle attack",
-                  "type": "Information disclosure",
-                  "mitigation": "Enforce an encrypted connection at the DB server",
-                  "description": "An attacker could intercept the DB queries in transit and obtain sensitive information, such as DB credentials, query parameters or query results (is unlikely since the data flow is over a private network).",
-                  "modelType": "STRIDE",
-                  "id": "72b9712b-2c08-40b1-aea6-57604e82f5f4"
-                }
-              ],
-              "isTrustBoundary": false
-            },
-            "id": "1d981aac-90a7-464e-9491-3456bc6e593c",
-            "labels": [
-              {
-                "position": 0.5,
-                "attrs": {
-                  "label": {
-                    "text": "Worker Query Results"
-                  }
-                }
-              }
-            ],
-            "source": {
-              "cell": "936557f9-22e2-4bac-bb70-0089c5c2fbe1"
-            },
-            "target": {
-              "cell": "3e75b596-9c70-41b6-a2cf-a15899c254d3"
-            },
-            "vertices": [
-              {
-                "x": 466,
-                "y": 347
-              }
-            ]
-          },
-          {
-            "shape": "trust-broundary-curve",
-            "attrs": {
-              "line": {
-                "targetMarker": "",
-                "sourceMarker": ""
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "labels": [
-              {
-                "attrs": {
-                  "text": {
-                    "text": ""
-                  }
-                }
-              }
-            ],
-            "data": {
-              "type": "tm.Boundary",
-              "name": "",
-              "description": "",
-              "isTrustBoundary": true,
-              "hasOpenThreats": false
-            },
-            "id": "4a7911c8-2493-46cc-960f-1b248b176d15",
-            "source": {
-              "x": 241,
-              "y": 444
-            },
-            "target": {
-              "x": 526,
-              "y": 465
-            },
-            "vertices": [
-              {
-                "x": 333,
-                "y": 288
-              },
-              {
-                "x": 488,
-                "y": 267
-              },
-              {
-                "x": 552,
-                "y": 339
-              }
-            ]
-          },
-          {
-            "shape": "flow",
-            "attrs": {
-              "line": {
-                "stroke": "#333333",
-                "strokeWidth": 1,
-                "targetMarker": {
-                  "name": "classic"
-                },
-                "strokeDasharray": null
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "data": {
-              "type": "tm.Flow",
-              "name": "Web Response",
+              "name": "Web results",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
               "protocol": "HTTP/S",
               "isEncrypted": true,
               "isPublicNetwork": true,
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "threats": [
                 {
-                  "status": "Mitigated",
+                  "status": "Open",
                   "severity": "High",
                   "title": "Data flow should use HTTP/S",
                   "type": "Information disclosure",
@@ -831,14 +308,7 @@
             },
             "id": "28d7c778-8fdf-43d6-9461-b25281743883",
             "labels": [
-              {
-                "position": 0.5,
-                "attrs": {
-                  "label": {
-                    "text": "Web Response (HTTP/S)"
-                  }
-                }
-              }
+              "Web results"
             ],
             "source": {
               "cell": "0d9909ea-1398-4898-be81-cf1c808324dc"
@@ -848,8 +318,8 @@
             },
             "vertices": [
               {
-                "x": 111,
-                "y": 175
+                "x": 20,
+                "y": 150
               }
             ]
           },
@@ -862,7 +332,7 @@
                 "targetMarker": {
                   "name": "classic"
                 },
-                "strokeDasharray": "2 2"
+                "strokeDasharray": "5 2"
               }
             },
             "width": 200,
@@ -884,14 +354,7 @@
             },
             "id": "7e039c91-9a2e-4ded-890a-0d9bf06c8b47",
             "labels": [
-              {
-                "position": 0.5,
-                "attrs": {
-                  "label": {
-                    "text": "Read web app config"
-                  }
-                }
-              }
+              "Read web app config"
             ],
             "source": {
               "cell": "bdd3e115-4b92-4020-90b7-c3351dba292b"
@@ -901,61 +364,8 @@
             },
             "vertices": [
               {
-                "x": 157,
-                "y": 292
-              }
-            ]
-          },
-          {
-            "shape": "flow",
-            "attrs": {
-              "line": {
-                "stroke": "#333333",
-                "strokeWidth": 1,
-                "targetMarker": {
-                  "name": "classic"
-                },
-                "strokeDasharray": "2 2"
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "data": {
-              "type": "tm.Flow",
-              "name": "Read worker config",
-              "description": "",
-              "outOfScope": true,
-              "reasonOutOfScope": "This data flow represents a read from the file system",
-              "protocol": "",
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "hasOpenThreats": false,
-              "threats": [],
-              "isTrustBoundary": false
-            },
-            "id": "9c2171c8-f3aa-48db-91a4-3fa255b7c620",
-            "labels": [
-              {
-                "position": 0.5,
-                "attrs": {
-                  "label": {
-                    "text": "Read worker config"
-                  }
-                }
-              }
-            ],
-            "source": {
-              "cell": "a25bbb4e-093f-4238-a620-31efdee452dc"
-            },
-            "target": {
-              "cell": "3e75b596-9c70-41b6-a2cf-a15899c254d3"
-            },
-            "vertices": [
-              {
-                "x": 664,
-                "y": 320
+                "x": 65,
+                "y": 380
               }
             ]
           },
@@ -990,14 +400,7 @@
             },
             "id": "8a9007e8-ae66-4568-84c7-9bcbc1e2fdab",
             "labels": [
-              {
-                "position": 0.5,
-                "attrs": {
-                  "label": {
-                    "text": "Queries"
-                  }
-                }
-              }
+              "Queries"
             ],
             "source": {
               "cell": "0d9909ea-1398-4898-be81-cf1c808324dc"
@@ -1007,8 +410,8 @@
             },
             "vertices": [
               {
-                "x": 311,
-                "y": 324
+                "x": 290,
+                "y": 460
               }
             ]
           },
@@ -1043,14 +446,7 @@
             },
             "id": "d071f844-374b-4957-8664-4f53ec0807cc",
             "labels": [
-              {
-                "position": 0.5,
-                "attrs": {
-                  "label": {
-                    "text": "Web App Query\nResults"
-                  }
-                }
-              }
+              "Web App Query\nResults"
             ],
             "source": {
               "cell": "936557f9-22e2-4bac-bb70-0089c5c2fbe1"
@@ -1060,8 +456,218 @@
             },
             "vertices": [
               {
-                "x": 377,
-                "y": 280
+                "x": 320,
+                "y": 410
+              }
+            ]
+          },
+          {
+            "shape": "trust-broundary-curve",
+            "attrs": {
+              "line": {
+                "targetMarker": "",
+                "sourceMarker": ""
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "labels": [
+              {
+                "attrs": {
+                  "text": {
+                    "text": ""
+                  }
+                }
+              }
+            ],
+            "data": {
+              "type": "tm.Boundary",
+              "name": "",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            },
+            "id": "0adc088b-ebb1-46be-af7b-36112c60c419",
+            "source": {
+              "x": -80,
+              "y": 200
+            },
+            "target": {
+              "x": 340,
+              "y": -60
+            },
+            "vertices": [
+              {
+                "x": 276,
+                "y": 149
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "targetMarker": {
+                  "name": "classic"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Authentication Request",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "protocol": "HTTP/S",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "dfbf1723-90e6-4bc3-a651-417eddf368e7",
+                  "title": "Data flow should use HTTP/S",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "These responses are over the public internet and could be intercepted by an attacker.",
+                  "mitigation": "The requests should require HTTP/S. This will provide confidentiality and integrity. HTTP should not be supported.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 2,
+                  "score": ""
+                }
+              ]
+            },
+            "id": "7c40e772-e4bf-456f-9c17-d72fb05c1469",
+            "labels": [
+              "Authentication Request"
+            ],
+            "source": {
+              "cell": "b394f9f7-07ca-42bc-b616-ad77c6fbfcce"
+            },
+            "target": {
+              "cell": "66054a33-38fc-4781-9786-8b2d245bc618"
+            },
+            "vertices": [
+              {
+                "x": 330,
+                "y": -80
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "targetMarker": {
+                  "name": "classic"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Authentication Result",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "protocol": "HTTP/S",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "f8156680-745d-481c-b88b-0293ebf02fca",
+                  "title": "Data flow should use HTTP/S",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "These responses are over the public internet and could be intercepted by an attacker.",
+                  "mitigation": "The requests should require HTTP/S. This will provide confidentiality and integrity. HTTP should not be supported.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 2,
+                  "score": ""
+                }
+              ]
+            },
+            "id": "cabd9dcd-97f7-4986-9d02-09d601481c0d",
+            "labels": [
+              "Authentication Result"
+            ],
+            "source": {
+              "cell": "66054a33-38fc-4781-9786-8b2d245bc618"
+            },
+            "target": {
+              "cell": "b394f9f7-07ca-42bc-b616-ad77c6fbfcce"
+            },
+            "vertices": [
+              {
+                "x": 430,
+                "y": -100
+              },
+              {
+                "x": 200,
+                "y": -100
+              }
+            ]
+          },
+          {
+            "shape": "trust-broundary-curve",
+            "attrs": {
+              "line": {
+                "targetMarker": "",
+                "sourceMarker": ""
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "labels": [
+              ""
+            ],
+            "data": {
+              "type": "tm.Boundary",
+              "name": "",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            },
+            "id": "4a7911c8-2493-46cc-960f-1b248b176d15",
+            "source": {
+              "x": 340,
+              "y": 460
+            },
+            "target": {
+              "x": 640,
+              "y": 480
+            },
+            "vertices": [
+              {
+                "x": 350,
+                "y": 310
+              },
+              {
+                "x": 550,
+                "y": 260
+              },
+              {
+                "x": 680,
+                "y": 340
               }
             ]
           },
@@ -1083,46 +689,598 @@
             "connector": "smooth",
             "data": {
               "type": "tm.Flow",
-              "name": "Worker Queries",
+              "name": "Queries",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
               "protocol": "",
-              "isEncrypted": false,
+              "isEncrypted": true,
               "isPublicNetwork": false,
               "hasOpenThreats": false,
-              "threats": [],
-              "isTrustBoundary": false
+              "threats": []
             },
-            "id": "7efaaa0f-402c-4fc7-b9b8-449cfdb10026",
+            "id": "4460e40b-6c36-4a30-acca-bae40bcbb97a",
             "labels": [
-              {
-                "position": 0.5,
-                "attrs": {
-                  "label": {
-                    "text": "Worker Queries"
-                  }
-                }
-              }
+              "Queries"
             ],
             "source": {
-              "cell": "3e75b596-9c70-41b6-a2cf-a15899c254d3"
+              "cell": "66054a33-38fc-4781-9786-8b2d245bc618"
             },
             "target": {
               "cell": "936557f9-22e2-4bac-bb70-0089c5c2fbe1"
             },
             "vertices": [
               {
-                "x": 552,
-                "y": 382
+                "x": 570,
+                "y": 340
               }
             ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "strokeWidth": 1,
+                "targetMarker": {
+                  "name": "classic"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "User credentials",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "protocol": "",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "id": "5148c20f-9f16-4a2d-b969-7da81d13a4d4",
+            "labels": [
+              "User credentials"
+            ],
+            "source": {
+              "cell": "936557f9-22e2-4bac-bb70-0089c5c2fbe1"
+            },
+            "target": {
+              "cell": "66054a33-38fc-4781-9786-8b2d245bc618"
+            },
+            "vertices": [
+              {
+                "x": 670,
+                "y": 270
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "targetMarker": {
+                  "name": "classic"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Get message (MOD) and comments",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "protocol": "HTTP/S",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "a789501a-434e-440b-b55a-45713620ee90",
+                  "title": "Data flow should use HTTP/S",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "These responses are over the public internet and could be intercepted by an attacker.",
+                  "mitigation": "The requests should require HTTP/S. This will provide confidentiality and integrity. HTTP should not be supported.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 4,
+                  "score": ""
+                }
+              ]
+            },
+            "id": "bc510351-905a-4e8b-8785-94be54d03314",
+            "labels": [
+              "Get message (MOD) and comments"
+            ],
+            "source": {
+              "cell": "b394f9f7-07ca-42bc-b616-ad77c6fbfcce"
+            },
+            "target": {
+              "cell": "0756cb32-61ba-4c0a-af13-26af2d9a3af0"
+            },
+            "vertices": [
+              {
+                "x": 290,
+                "y": 30
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "targetMarker": {
+                  "name": "classic"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Message (MOD) and comments result",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "protocol": "HTTP/S",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "95165674-ed78-49e8-b99e-93f93b351811",
+                  "title": "Data flow should use HTTP/S",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "These responses are over the public internet and could be intercepted by an attacker.",
+                  "mitigation": "The requests should require HTTP/S. This will provide confidentiality and integrity. HTTP should not be supported.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 4,
+                  "score": ""
+                }
+              ]
+            },
+            "id": "f630365a-5b74-4716-a1e6-7074a3023bd0",
+            "labels": [
+              "Message (MOD) and comments result"
+            ],
+            "source": {
+              "cell": "0756cb32-61ba-4c0a-af13-26af2d9a3af0"
+            },
+            "target": {
+              "cell": "b394f9f7-07ca-42bc-b616-ad77c6fbfcce"
+            },
+            "vertices": [
+              {
+                "x": 340,
+                "y": -10
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "targetMarker": {
+                  "name": "classic"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Post a comment",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "protocol": "HTTP/S",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "8af73dc3-3b93-469a-b1eb-880abbec28c1",
+                  "title": "Data flow should use HTTP/S",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Information disclosure",
+                  "description": "These responses are over the public internet and could be intercepted by an attacker.",
+                  "mitigation": "The requests should require HTTP/S. This will provide confidentiality and integrity. HTTP should not be supported.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 10,
+                  "score": ""
+                }
+              ]
+            },
+            "id": "4baf8fa1-e62b-4ff1-b81d-7696ca30bd29",
+            "labels": [
+              "Post a comment"
+            ],
+            "source": {
+              "cell": "b394f9f7-07ca-42bc-b616-ad77c6fbfcce"
+            },
+            "target": {
+              "cell": "0756cb32-61ba-4c0a-af13-26af2d9a3af0"
+            },
+            "vertices": [
+              {
+                "x": 260,
+                "y": 80
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "targetMarker": {
+                  "name": "classic"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Get authentication status",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "protocol": "HTTP/S",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "88604ce1-2c56-4e16-8ce9-36a5540f1f05",
+                  "title": "Session token spoofing",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "The session token key may be disclosed and used by an external entity.",
+                  "mitigation": "De-authenticate session tokens frequently.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 9,
+                  "score": ""
+                }
+              ]
+            },
+            "id": "821719c7-643a-4809-b088-445b99ee5dfe",
+            "labels": [
+              "Get authentication status"
+            ],
+            "source": {
+              "cell": "0756cb32-61ba-4c0a-af13-26af2d9a3af0"
+            },
+            "target": {
+              "cell": "66054a33-38fc-4781-9786-8b2d245bc618"
+            },
+            "vertices": [
+              {
+                "x": 560,
+                "y": 70
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "targetMarker": {
+                  "name": "classic"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Authentication status result",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "protocol": "HTTP/S",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "2181bf27-5e19-4d53-95fd-4a327ccd0be9",
+                  "title": "Session token spoofing",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "The session token key may be disclosed and used by an external entity.",
+                  "mitigation": "De-authenticate session tokens frequently.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 8,
+                  "score": ""
+                }
+              ]
+            },
+            "id": "2533c361-a849-41f8-a0e7-016cb0adf24d",
+            "labels": [
+              "Authentication status result"
+            ],
+            "source": {
+              "cell": "66054a33-38fc-4781-9786-8b2d245bc618"
+            },
+            "target": {
+              "cell": "0756cb32-61ba-4c0a-af13-26af2d9a3af0"
+            },
+            "vertices": [
+              {
+                "x": 480,
+                "y": 20
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "strokeWidth": 1,
+                "targetMarker": {
+                  "name": "classic"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Message (MOD) and comments results",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "protocol": "",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "id": "b03c8e43-caea-40ba-b192-f45232eec788",
+            "labels": [
+              "Message (MOD) and comments results"
+            ],
+            "source": {
+              "cell": "936557f9-22e2-4bac-bb70-0089c5c2fbe1"
+            },
+            "target": {
+              "cell": "0756cb32-61ba-4c0a-af13-26af2d9a3af0"
+            },
+            "vertices": [
+              {
+                "x": 430,
+                "y": 300
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "strokeWidth": 1,
+                "targetMarker": {
+                  "name": "classic"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Query message (MOD) and comments",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "protocol": "",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "id": "e36ef495-7e08-4f7d-9707-0f3de5d1a9fa",
+            "labels": [
+              "Query message (MOD) and comments"
+            ],
+            "source": {
+              "cell": "0756cb32-61ba-4c0a-af13-26af2d9a3af0"
+            },
+            "target": {
+              "cell": "936557f9-22e2-4bac-bb70-0089c5c2fbe1"
+            },
+            "vertices": [
+              {
+                "x": 260,
+                "y": 260
+              },
+              {
+                "x": 280,
+                "y": 240
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "strokeWidth": 1,
+                "targetMarker": {
+                  "name": "classic"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Post a comment and query new comments.",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "protocol": "",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "id": "30359548-b812-44a3-8507-02045d9f1e7f",
+            "labels": [
+              "Post a comment and query new comments."
+            ],
+            "source": {
+              "cell": "0756cb32-61ba-4c0a-af13-26af2d9a3af0"
+            },
+            "target": {
+              "cell": "936557f9-22e2-4bac-bb70-0089c5c2fbe1"
+            },
+            "vertices": [
+              {
+                "x": 510,
+                "y": 180
+              },
+              {
+                "x": 480,
+                "y": 120
+              }
+            ]
+          },
+          {
+            "position": {
+              "x": 540,
+              "y": -90
+            },
+            "size": {
+              "width": 100,
+              "height": 100
+            },
+            "attrs": {
+              "text": {
+                "text": "Authentication"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 3,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 11,
+            "id": "66054a33-38fc-4781-9786-8b2d245bc618",
+            "data": {
+              "type": "tm.Process",
+              "name": "Authentication",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "privilegeLevel": "",
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "a6cbca36-9609-4dfa-b6d2-6c7a960087f0",
+                  "title": "Reverse-engineering",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Elevation of privilege",
+                  "description": "The authentication is open-source and can be reverse-engineered.",
+                  "mitigation": "Quarantine the authentication component ",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 10,
+                  "score": ""
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "x": 410,
+              "y": 70
+            },
+            "size": {
+              "width": 80,
+              "height": 80
+            },
+            "attrs": {
+              "text": {
+                "text": "Messages"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 12,
+            "id": "0756cb32-61ba-4c0a-af13-26af2d9a3af0",
+            "data": {
+              "type": "tm.Process",
+              "name": "Messages",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "privilegeLevel": "",
+              "hasOpenThreats": false,
+              "threats": []
+            }
           }
         ]
       }
     ],
     "diagramTop": 1,
     "reviewer": "test",
-    "threatTop": 0
+    "threatTop": 10
   }
 }
